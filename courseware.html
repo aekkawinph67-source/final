@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>คอร์สแวร์ความจริงเสริมเพื่อการเรียนรู้</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#1b2a49;--navy2:#2c3e63;--slate:#475569;--line:#cbd5e1;--soft:#f1f5f9;--okbg:#e8efea;--okfg:#2f5d46;--badbg:#f3e8e8;--badfg:#7b3f3f}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font-family:'Sarabun',sans-serif;font-size:16px;line-height:1.65;color:#1e293b;background:#fff}
+h1,h2,h3{color:var(--navy);line-height:1.35;margin:.4em 0 .4em}
+h1{font-size:1.5rem}h2{font-size:1.3rem}h3{font-size:1.1rem}
+p{margin:.5em 0}
+.muted{color:var(--slate);font-size:.92rem}
+.wrap{max-width:860px;margin:0 auto;padding:0 12px 40px}
+header.top{background:var(--navy);color:#fff;padding:10px 12px}
+header.top .in{max-width:860px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+header.top b{font-size:1rem}
+header.top small{opacity:.85;display:block}
+nav.menu{background:var(--soft);border-bottom:1px solid var(--line);overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+nav.menu .in{max-width:860px;margin:0 auto;padding:6px 8px;display:flex;gap:6px}
+nav.menu button{font:inherit;font-size:.92rem;border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:6px;padding:6px 10px;cursor:pointer;flex:0 0 auto}
+nav.menu button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+nav.menu button:disabled{opacity:.45;cursor:not-allowed}
+.card{border:1px solid var(--line);border-radius:8px;padding:14px;margin:12px 0;background:#fff}
+.box-main{background:var(--navy);color:#fff;border-radius:8px;padding:12px 14px;margin:12px 0}
+.box-main h3{color:#fff;margin-top:0}
+.box-sub{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:10px 14px;margin:12px 0}
+.badge{display:inline-block;background:var(--navy);color:#fff;border-radius:4px;padding:1px 8px;font-size:.85rem}
+.btn{font:inherit;background:var(--navy);color:#fff;border:0;border-radius:6px;padding:9px 16px;cursor:pointer;min-height:44px}
+.btn.alt{background:#fff;color:var(--navy);border:1px solid var(--navy)}
+.btn.sm{padding:4px 10px;min-height:32px;font-size:.9rem}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.nav-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+label{display:block;margin:10px 0 3px;font-weight:500}
+input[type=text],input[type=password],input[type=url],input[type=number],input[type=file],select,textarea{width:100%;font:inherit;padding:8px;border:1px solid var(--line);border-radius:6px;background:#fff}
+textarea{min-height:80px}
+table{border-collapse:collapse;width:100%;font-size:.93rem;margin:8px 0}
+th{background:var(--navy);color:#fff;text-align:left;padding:7px 8px;font-weight:500}
+td{border:1px solid var(--line);padding:6px 8px;vertical-align:top}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.opts{display:grid;gap:6px;margin:6px 0}
+.opt{font:inherit;text-align:left;background:#fff;border:1px solid var(--line);border-radius:6px;padding:9px 10px;cursor:pointer;min-height:44px}
+.opt.ok{background:var(--okbg);border-color:var(--okfg);color:var(--okfg)}
+.opt.bad{background:var(--badbg);border-color:var(--badfg);color:var(--badfg)}
+.fb{border-radius:6px;padding:8px 10px;margin:6px 0;font-size:.95rem}
+.fb.ok{background:var(--okbg);color:var(--okfg)}
+.fb.bad{background:var(--badbg);color:var(--badfg)}
+.iq{border-top:1px dashed var(--line);padding-top:8px;margin-top:10px}
+fieldset.qz{border:1px solid var(--line);border-radius:8px;margin:10px 0;padding:8px 12px}
+fieldset.qz legend{padding:0 6px;font-weight:400}
+.radio{display:flex;gap:8px;align-items:flex-start;padding:5px 0;margin:0;font-weight:400}
+.radio input{margin-top:6px}
+figure{margin:12px 0;text-align:center}
+figure svg{max-width:100%;height:auto}
+figcaption{font-size:.9rem;color:var(--slate)}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:6px;padding:10px;overflow-x:auto;font-size:.85rem;line-height:1.5}
+#msg .m{border-radius:6px;padding:8px 10px;margin:8px 0}
+#msg .m.err{background:var(--badbg);color:var(--badfg)}
+#msg .m.ok{background:var(--okbg);color:var(--okfg)}
+.auth-wrap{max-width:440px;margin:24px auto;padding:0 12px}
+.tabs{display:flex;gap:6px;margin:10px 0}
+.tabs button{flex:1;font:inherit;padding:8px;border:1px solid var(--navy);background:#fff;color:var(--navy);border-radius:6px;cursor:pointer}
+.tabs button.on{background:var(--navy);color:#fff}
+.avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;border:1px solid var(--line);background:var(--soft)}
+.thumb{width:36px;height:36px;border-radius:50%;object-fit:cover}
+model-viewer{width:100%;height:340px;background:var(--soft);border-radius:8px}
+.big{font-size:1.6rem;color:var(--navy);font-weight:700}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px}
+.grid3>div{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:10px;text-align:center}
+a{color:var(--navy2)}
+@media (max-width:420px){body{font-size:15.5px}.card{padding:10px}}
+</style>
+<!-- model-viewer เวอร์ชัน 3.5.0 จาก CDN ของ Google -->
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* ===== ตั้งค่า: ใส่เฉพาะ URL และ anon key (ห้ามใส่คีย์ลับของผู้ดูแลระบบ) ===== */
+const SUPABASE_URL = 'https://zolwrifopnnpmnihqhlv.supabase.co/rest/v1/';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpvbHdyaWZvcG5ucG1uaWhxaGx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE1MjcxNTgsImV4cCI6MjEwNzEwMzE1OH0.v2z7jmpj4aXG-QVvcEWwMp8sGRWoTuNaGPTgVMy2-BI';
+const EMAIL_DOMAIN = 'mwn.ac.th';
+const COURSE = {
+  title: 'ความจริงเสริมเพื่อการเรียนรู้',
+  sub: 'รายวิชาคอมพิวเตอร์ (ว201121) ชั้นมัธยมศึกษาปีที่ 4 โรงเรียนมัธยมวานรนิวาส'
+};
+/* ===================================================================== */
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+'use strict';
+
+/* ---------- เนื้อหา ---------- */
+const FIG1 = `<figure><svg viewBox="0 0 640 190" role="img" aria-label="ความต่อเนื่องความจริง–เสมือน" xmlns="http://www.w3.org/2000/svg">
+<rect x="150" y="14" width="340" height="28" rx="4" fill="#f1f5f9" stroke="#475569"/>
+<text x="320" y="33" text-anchor="middle" font-size="14" fill="#1b2a49">ความจริงผสม (Mixed Reality)</text>
+<line x1="30" y1="100" x2="610" y2="100" stroke="#1b2a49" stroke-width="3"/>
+<polygon points="610,93 624,100 610,107" fill="#1b2a49"/>
+<circle cx="50" cy="100" r="7" fill="#1b2a49"/><circle cx="230" cy="100" r="7" fill="#1b2a49"/>
+<circle cx="410" cy="100" r="7" fill="#1b2a49"/><circle cx="590" cy="100" r="7" fill="#1b2a49"/>
+<g font-size="13" fill="#1e293b" text-anchor="middle">
+<text x="50" y="130">สภาพแวดล้อม</text><text x="50" y="148">จริง</text>
+<text x="230" y="130">ความจริงเสริม</text><text x="230" y="148">(AR)</text>
+<text x="410" y="130">เสมือนที่เสริมด้วย</text><text x="410" y="148">ของจริง (AV)</text>
+<text x="590" y="130">สภาพแวดล้อม</text><text x="590" y="148">เสมือน (VR)</text>
+</g>
+<text x="320" y="178" text-anchor="middle" font-size="12" fill="#475569">โลกจริงมากขึ้น ← → โลกเสมือนมากขึ้น</text>
+</svg>
+<figcaption><b>ภาพที่ 1</b> ความต่อเนื่องความจริง–เสมือน (ดัดแปลงจากแนวคิดของ Milgram &amp; Kishino, 1994)<br>หมายเหตุ: ตำแหน่งในภาพเป็นการแสดงเชิงแนวคิด ไม่ใช่มาตราวัดที่มีหน่วย</figcaption></figure>`;
+
+const FIG2 = `<figure><svg viewBox="0 0 640 110" role="img" aria-label="ขั้นตอนสร้างสื่อ WebAR" xmlns="http://www.w3.org/2000/svg">
+<g font-size="14" text-anchor="middle">
+<rect x="10" y="25" width="130" height="60" rx="6" fill="#1b2a49"/><text x="75" y="50" fill="#fff">1 เตรียมโมเดล</text><text x="75" y="70" fill="#fff">(.glb)</text>
+<rect x="175" y="25" width="130" height="60" rx="6" fill="#1b2a49"/><text x="240" y="50" fill="#fff">2 ฝากไฟล์</text><text x="240" y="70" fill="#fff">(https)</text>
+<rect x="340" y="25" width="130" height="60" rx="6" fill="#1b2a49"/><text x="405" y="50" fill="#fff">3 ใส่ลิงก์</text><text x="405" y="70" fill="#fff">ในโค้ด</text>
+<rect x="505" y="25" width="125" height="60" rx="6" fill="#1b2a49"/><text x="567" y="50" fill="#fff">4 ทดสอบ</text><text x="567" y="70" fill="#fff">บนมือถือ</text>
+</g>
+<g stroke="#475569" stroke-width="2"><line x1="142" y1="55" x2="172" y2="55"/><line x1="307" y1="55" x2="337" y2="55"/><line x1="472" y1="55" x2="502" y2="55"/></g>
+</svg>
+<figcaption><b>ภาพที่ 2</b> ขั้นตอนการสร้างสื่อ WebAR ขั้นพื้นฐาน<br>หมายเหตุ: หากทดสอบแล้วไม่สำเร็จ ให้ย้อนกลับไปตรวจขั้นตอนที่ 2 ก่อน</figcaption></figure>`;
+
+const CODE_SAMPLE = `<script type="module"
+  src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"><\/script>
+
+<model-viewer
+  src="https://ชื่อเว็บของท่าน/model.glb"
+  alt="คำอธิบายโมเดลสำหรับผู้ใช้โปรแกรมอ่านหน้าจอ"
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  camera-controls
+  touch-action="pan-y"
+  style="width:100%;height:340px">
+</model-viewer>`;
+
+const UNITS = [
+{ title:'พื้นฐานความจริงเสริม', min:15,
+  obj:['อธิบายนิยามของความจริงเสริมตามองค์ประกอบของ Azuma (1997) ได้','เปรียบเทียบ AR, VR และ MR ตามความต่อเนื่องความจริง–เสมือนของ Milgram & Kishino (1994) ได้','ยกตัวอย่างการใช้ AR ในห้องเรียนได้อย่างน้อย 2 ตัวอย่าง'],
+  html:`<section><h3>1.1 นิยามของความจริงเสริม</h3>
+<p>Azuma (1997) เสนอว่าระบบความจริงเสริม (Augmented Reality: AR) มีลักษณะสำคัญสามประการ ดังนี้</p>
+<div class="box-sub"><ol><li>รวมวัตถุจริงกับวัตถุเสมือนเข้าด้วยกัน</li><li>โต้ตอบกับผู้ใช้ได้แบบเรียลไทม์ (real-time)</li><li>ลงตำแหน่งของวัตถุเสมือนให้สัมพันธ์กับโลกจริงในสามมิติ (registered in 3-D)</li></ol></div>
+<p>นิยามนี้ไม่ได้จำกัดอยู่กับอุปกรณ์แบบใดแบบหนึ่ง จึงครอบคลุมทั้งแว่นตาแสดงผลและกล้องของโทรศัพท์มือถือ</p></section>
+<section><h3>1.2 AR, VR และ MR</h3>
+<p>Milgram และ Kishino (1994) อธิบายว่า สภาพแวดล้อมจริงและสภาพแวดล้อมเสมือนเป็นปลายสองด้านของแนวต่อเนื่องเดียวกัน ช่วงระหว่างปลายทั้งสองเรียกว่า <b>ความจริงผสม (Mixed Reality: MR)</b> ซึ่งรวมความจริงเสริม (AR) และสภาพเสมือนที่เสริมด้วยของจริง (Augmented Virtuality: AV) ไว้ด้วย ส่วนความจริงเสมือน (Virtual Reality: VR) คือสภาพแวดล้อมที่เป็นของเสมือนทั้งหมด</p>
+${FIG1}
+<p class="muted">ข้อสังเกต: ในการใช้งานทั่วไปปัจจุบัน คำว่า MR อาจถูกใช้ในความหมายแคบกว่านิยามดั้งเดิมข้างต้น ผู้เรียนควรสังเกตว่าแหล่งข้อมูลแต่ละแห่งใช้คำนี้ในความหมายใด</p></section>
+<section><h3>1.3 ตัวอย่างการใช้ AR ในห้องเรียน</h3>
+<p class="muted">ตัวอย่างต่อไปนี้เป็นสถานการณ์สมมติเพื่อประกอบการอธิบาย</p>
+<div class="scroll"><table><tr><th>รายวิชา</th><th>กิจกรรม</th><th>ประโยชน์ที่คาดหวัง</th></tr>
+<tr><td>วิทยาศาสตร์</td><td>ส่องกล้องไปที่ใบงาน แล้วดูโมเดลสามมิติของหัวใจและหมุนดูทุกด้าน</td><td>เห็นโครงสร้างที่ภาพสองมิติแสดงได้ยาก</td></tr>
+<tr><td>ภูมิศาสตร์</td><td>วางโมเดลภูเขาไฟบนโต๊ะ แล้วเดินสำรวจรอบโมเดล</td><td>เข้าใจรูปร่างและสัดส่วนของภูมิประเทศ</td></tr>
+<tr><td>คอมพิวเตอร์</td><td>ดูโมเดลชิ้นส่วนคอมพิวเตอร์ และเปรียบเทียบตำแหน่งกับของจริง</td><td>เชื่อมโยงชื่อชิ้นส่วนกับรูปร่างจริง</td></tr></table></div></section>`,
+  inline:[
+   {q:'ในนิยามของ Azuma (1997) คำว่า "registered in 3-D" หมายถึงข้อใด',c:['วัตถุเสมือนต้องมีสีสามสี','วัตถุเสมือนถูกจัดวางให้สัมพันธ์กับตำแหน่งในพื้นที่จริงสามมิติ','ผู้ใช้ต้องลงทะเบียนก่อนใช้งานสามครั้ง','ภาพต้องแสดงผลบนจอสามจอ'],a:1,e:'การลงตำแหน่งหมายถึงวัตถุเสมือนคงอยู่ในตำแหน่งที่สัมพันธ์กับโลกจริง แม้ผู้ใช้เปลี่ยนมุมมอง'},
+   {q:'นักเรียนสวมอุปกรณ์ที่แสดงโลกจำลองทั้งหมดโดยมองไม่เห็นห้องเรียนจริง อยู่ใกล้ปลายด้านใดของความต่อเนื่องความจริง–เสมือน',c:['ปลายสภาพแวดล้อมจริง','ปลายสภาพแวดล้อมเสมือน (VR)','ตรงกลางพอดี','ไม่อยู่บนความต่อเนื่อง'],a:1,e:'เมื่อเห็นเฉพาะสิ่งเสมือนทั้งหมด จัดเป็นสภาพแวดล้อมเสมือน (VR)'}
+  ]},
+{ title:'ชนิดและเทคโนโลยีของ AR', min:15,
+  obj:['จำแนกชนิดของ AR ได้ 4 ชนิด ได้แก่ marker-based, markerless, location-based และ projection-based','เปรียบเทียบ WebAR กับแอปเนทีฟได้','ระบุข้อจำกัดของการใช้ AR ในห้องเรียนได้อย่างน้อย 3 ข้อ'],
+  html:`<section><h3>2.1 ชนิดของ AR</h3>
+<div class="scroll"><table><tr><th>ชนิด</th><th>หลักการโดยสรุป</th><th>ตัวอย่างในการเรียนรู้</th></tr>
+<tr><td>marker-based</td><td>ใช้ภาพหรือรหัสที่กำหนดไว้ (marker) เป็นตัวระบุตำแหน่งให้แสดงวัตถุเสมือน</td><td>ส่องกล้องไปที่ภาพบนใบงานแล้วมีโมเดลปรากฏ</td></tr>
+<tr><td>markerless</td><td>ใช้ข้อมูลจากกล้องและเซนเซอร์เพื่อหาพื้นผิวหรือระนาบ โดยไม่ต้องมี marker</td><td>วางโมเดลบนโต๊ะจริงแล้วเดินดูรอบ ๆ</td></tr>
+<tr><td>location-based</td><td>ใช้ตำแหน่ง เช่น GPS และเซนเซอร์ในเครื่องเพื่อแสดงข้อมูลตามที่ที่ผู้ใช้อยู่</td><td>แสดงข้อมูลประวัติศาสตร์เมื่อยืนที่สถานที่สำคัญ</td></tr>
+<tr><td>projection-based</td><td>ฉายแสงหรือภาพลงบนพื้นผิวของจริง</td><td>ฉายภาพกระดูกลงบนหุ่นจำลองเพื่ออธิบายตำแหน่ง</td></tr></table></div>
+<p class="muted">หมายเหตุ: การจัดประเภทข้างต้นเป็นการสรุปตามแนวปฏิบัติทั่วไป ผู้สอนควรเทียบกับเอกสารที่ใช้ในรายวิชา</p></section>
+<section><h3>2.2 WebAR กับแอปเนทีฟ</h3>
+<div class="scroll"><table><tr><th>ประเด็น</th><th>WebAR</th><th>แอปเนทีฟ</th></tr>
+<tr><td>การใช้งาน</td><td>เปิดผ่านเบราว์เซอร์ด้วยลิงก์ ไม่ต้องติดตั้งแอป</td><td>ต้องติดตั้งแอปจากร้านค้าแอป</td></tr>
+<tr><td>ความสามารถ</td><td>ขึ้นอยู่กับเบราว์เซอร์และอุปกรณ์</td><td>เข้าถึงความสามารถของเครื่องได้มากกว่าโดยทั่วไป</td></tr>
+<tr><td>การเผยแพร่</td><td>แก้ไขแล้วผู้ใช้เห็นทันทีเมื่อเปิดลิงก์ใหม่</td><td>ต้องปล่อยเวอร์ชันใหม่ให้ผู้ใช้อัปเดต</td></tr></table></div></section>
+<section><h3>2.3 ข้อจำกัด</h3>
+<ul><li><b>อุปกรณ์:</b> โทรศัพท์บางรุ่นหรือบางเบราว์เซอร์ไม่รองรับโหมด AR</li>
+<li><b>แสงและพื้นผิว:</b> แสงน้อยหรือพื้นผิวเรียบมากอาจทำให้ระบบหาตำแหน่งได้ยาก</li>
+<li><b>อินเทอร์เน็ต:</b> ไฟล์โมเดลขนาดใหญ่โหลดช้าเมื่อสัญญาณไม่ดี</li>
+<li><b>ความเป็นส่วนตัวของกล้อง:</b> กล้องอาจบันทึกภาพบุคคลหรือพื้นที่ส่วนตัวโดยไม่ตั้งใจ ควรแจ้งและขออนุญาตก่อนใช้ และไม่เผยแพร่ภาพของผู้อื่นโดยไม่ได้รับอนุญาต</li></ul></section>`,
+  inline:[
+   {q:'ข้อใดเป็นสิ่งที่ markerless AR ไม่จำเป็นต้องใช้',c:['กล้องของอุปกรณ์','ภาพ marker ที่พิมพ์ไว้ล่วงหน้า','ข้อมูลจากเซนเซอร์ในเครื่อง','หน้าจอแสดงผล'],a:1,e:'markerless AR หาตำแหน่งจากกล้องและเซนเซอร์ จึงไม่ต้องมี marker เฉพาะ'},
+   {q:'ข้อใดอธิบายความแตกต่างของ WebAR กับแอปเนทีฟได้ถูกต้อง',c:['WebAR ต้องติดตั้งแอปทุกครั้ง','WebAR ทำงานผ่านเบราว์เซอร์ จึงไม่ต้องติดตั้งแอป แต่ความสามารถขึ้นกับเบราว์เซอร์และอุปกรณ์','แอปเนทีฟใช้งานผ่านลิงก์โดยไม่ต้องติดตั้ง','WebAR ใช้ไม่ได้กับโทรศัพท์มือถือ'],a:1,e:'จุดเด่นของ WebAR คือเข้าถึงด้วยลิงก์ แต่ความสามารถถูกจำกัดโดยเบราว์เซอร์และอุปกรณ์'}
+  ]},
+{ title:'การออกแบบสื่อ AR เพื่อการเรียนรู้', min:15,
+  obj:['เขียนวัตถุประสงค์การเรียนรู้ก่อนเลือกเทคโนโลยีได้','อธิบายภาระทางปัญญาและประยุกต์หลักการของ Mayer อย่างน้อย 2 หลักกับสื่อ AR ได้','วางแผนทางเลือกสำรองสำหรับผู้เรียนที่ไม่มีอุปกรณ์รองรับได้'],
+  html:`<section><h3>3.1 เริ่มจากวัตถุประสงค์ ไม่ใช่เริ่มจากเทคโนโลยี</h3>
+<p>ผู้ออกแบบควรเขียนว่าผู้เรียนต้องทำอะไรได้หลังเรียน แล้วจึงพิจารณาว่า AR ช่วยให้บรรลุเป้าหมายนั้นได้ดีกว่าสื่ออื่นหรือไม่</p>
+<div class="box-sub"><b>ตัวอย่าง</b><br>วัตถุประสงค์ที่ยังไม่ชัด: "ให้นักเรียนสนุกกับ AR"<br>วัตถุประสงค์เชิงพฤติกรรม: "นักเรียนระบุชื่อชิ้นส่วนหลักของคอมพิวเตอร์ได้ถูกต้องอย่างน้อย 5 ชิ้น จากโมเดลสามมิติ"</div></section>
+<section><h3>3.2 ภาระทางปัญญาและหลักการของ Mayer</h3>
+<p>ภาระทางปัญญา (cognitive load) หมายถึงปริมาณข้อมูลที่ผู้เรียนต้องประมวลผลในหน่วยความจำขณะทำงาน หากสื่อมีองค์ประกอบที่ไม่เกี่ยวกับเป้าหมายมากเกินไป ผู้เรียนจะมีทรัพยากรเหลือสำหรับการเรียนรู้น้อยลง สื่อ AR มักมีสิ่งเร้าจำนวนมาก (ภาพจริง วัตถุเสมือน ข้อความ เสียง) จึงควรออกแบบอย่างระมัดระวัง ตัวอย่างหลักการจาก Mayer (2009) ที่เกี่ยวข้อง</p>
+<div class="scroll"><table><tr><th>หลักการ</th><th>ความหมาย</th><th>การประยุกต์กับสื่อ AR</th></tr>
+<tr><td>ความสอดคล้อง (coherence)</td><td>ตัดสิ่งที่ไม่เกี่ยวกับเป้าหมายการเรียนออก</td><td>ไม่ใส่เสียงดนตรีหรือภาพตกแต่งที่ไม่เกี่ยวกับเนื้อหา</td></tr>
+<tr><td>การชี้นำ (signaling)</td><td>ใช้สัญลักษณ์ชี้ส่วนสำคัญ</td><td>ใช้ลูกศรหรือสีเน้นชิ้นส่วนที่กำลังอธิบาย</td></tr>
+<tr><td>ความต่อเนื่องเชิงพื้นที่ (spatial contiguity)</td><td>วางคำอธิบายใกล้ส่วนของภาพที่เกี่ยวข้อง</td><td>วางป้ายชื่อติดกับชิ้นส่วนบนโมเดล</td></tr>
+<tr><td>การแบ่งส่วน (segmenting)</td><td>แบ่งเนื้อหาเป็นช่วงสั้น ผู้เรียนกำหนดจังหวะเอง</td><td>แสดงทีละชิ้นส่วน พร้อมปุ่ม "ถัดไป"</td></tr></table></div></section>
+<section><h3>3.3 ประสบการณ์ผู้ใช้และการเข้าถึง</h3>
+<ul><li>ให้คำแนะนำสั้น ๆ ก่อนเปิดกล้อง เช่น วิธีขยับเครื่องและแสงที่เหมาะสม</li>
+<li>ปุ่มมีขนาดใหญ่พอสำหรับการสัมผัส และข้อความอ่านง่าย</li>
+<li>ใส่คำอธิบายทางเลือก (alt) ให้กับโมเดล</li>
+<li><b>ต้องมีทางเลือกสำรอง</b> สำหรับผู้เรียนที่ไม่มีอุปกรณ์รองรับ เช่น ดูโมเดลสามมิติบนหน้าเว็บโดยไม่เปิดกล้อง ภาพนิ่งหลายมุม วิดีโอสั้น หรือใช้อุปกรณ์ของโรงเรียนเป็นกลุ่ม</li></ul></section>`,
+  inline:[
+   {q:'ผู้เรียนบางคนไม่มีโทรศัพท์ที่รองรับโหมด AR ผู้ออกแบบควรทำอย่างไร',c:['ให้ผู้เรียนเหล่านั้นไม่ต้องเรียนเรื่องนี้','จัดทางเลือกสำรอง เช่น ดูโมเดลบนหน้าเว็บ ภาพหลายมุม หรือวิดีโอสั้น','ให้ซื้อโทรศัพท์รุ่นใหม่','ตัดเนื้อหาส่วนนี้ออกจากรายวิชา'],a:1,e:'การออกแบบที่ดีต้องไม่ทำให้ผู้เรียนเสียโอกาสเรียนรู้เพราะข้อจำกัดของอุปกรณ์'},
+   {q:'ข้อใดเป็นตัวอย่างของสิ่งที่เพิ่มภาระทางปัญญาโดยไม่จำเป็นในสื่อ AR',c:['ป้ายชื่อติดกับชิ้นส่วนที่กำลังอธิบาย','ปุ่ม "ถัดไป" เพื่อแสดงทีละชิ้นส่วน','เสียงดนตรีและภาพเคลื่อนไหวที่ไม่เกี่ยวกับเป้าหมายการเรียน','ลูกศรชี้ส่วนสำคัญ'],a:2,e:'องค์ประกอบที่ไม่เกี่ยวกับเป้าหมายการเรียนแย่งความสนใจและเพิ่มภาระโดยไม่จำเป็น'}
+  ]},
+{ title:'ปฏิบัติ: สร้างสื่อ WebAR ขั้นพื้นฐาน', min:20,
+  obj:['อธิบายหน้าที่ของ &lt;model-viewer&gt; และแอตทริบิวต์พื้นฐานได้','ปฏิบัติตามขั้นตอนเตรียมโมเดล ฝากไฟล์ ใส่ลิงก์ และทดสอบบนมือถือได้','ส่งงานปฏิบัติ (ลิงก์ หรือไฟล์ภาพหน้าจอ/วิดีโอสั้น) ได้'],
+  html:`<section><h3>4.1 ภาพรวม</h3>
+<p>&lt;model-viewer&gt; เป็นองค์ประกอบเว็บ (web component) สำหรับแสดงโมเดลสามมิติรูปแบบ .glb และเปิดโหมด AR บนอุปกรณ์ที่รองรับ บทเรียนนี้ใช้ model-viewer เวอร์ชัน 3.5.0 จาก CDN ของ Google</p>${FIG2}</section>
+<section><h3>4.2 ตัวอย่างที่ใช้งานได้</h3>
+<p>ลองหมุนและขยายโมเดลด้านล่าง หากเปิดบนโทรศัพท์ที่รองรับ จะมีปุ่มสำหรับเปิดโหมด AR</p>
+<model-viewer src="https://modelviewer.dev/shared-assets/models/Astronaut.glb" alt="โมเดลสามมิติของนักบินอวกาศ สำหรับทดลองหมุนและเปิดโหมด AR" ar ar-modes="webxr scene-viewer quick-look" camera-controls touch-action="pan-y" shadow-intensity="1"></model-viewer>
+<p class="muted">โมเดลตัวอย่างมาจากชุดตัวอย่างของเว็บไซต์ modelviewer.dev หากโมเดลไม่แสดง ให้ตรวจสัญญาณอินเทอร์เน็ตแล้วโหลดหน้าใหม่</p></section>
+<section><h3>4.3 ขั้นตอนทำตามทีละข้อ</h3>
+<div class="box-sub"><ol>
+<li><b>เตรียมโมเดล:</b> เลือกโมเดลสามมิติที่เป็นไฟล์ .glb และมีสิทธิ์นำไปใช้ (สร้างเอง หรือมีใบอนุญาตที่อนุญาตให้ใช้) ควรเลือกไฟล์ขนาดเล็กเพื่อให้โหลดเร็ว</li>
+<li><b>ฝากไฟล์:</b> นำไฟล์ขึ้นบริการที่ให้ลิงก์แบบ https ซึ่งชี้ถึงไฟล์ .glb โดยตรง ลิงก์แชร์ที่เปิดเป็นหน้าเว็บของบริการเก็บไฟล์บางชนิดอาจใช้ไม่ได้ และเว็บที่ฝากต้องอนุญาตให้หน้าเว็บอื่นเรียกใช้ไฟล์ได้</li>
+<li><b>ใส่ลิงก์:</b> คัดลอกโค้ดตัวอย่างด้านล่าง แล้วแทนค่า src ด้วยลิงก์ไฟล์ .glb ของท่าน และแก้ alt ให้ตรงกับโมเดล</li>
+<li><b>ทดสอบบนมือถือ:</b> เปิดหน้าเว็บผ่าน https บนโทรศัพท์ที่รองรับ แล้วกดปุ่ม AR วางโมเดลบนพื้นผิวที่มีแสงเพียงพอ</li></ol></div>
+<pre>${CODE_SAMPLE.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+<p class="muted">โหมด AR ทำงานต่างกันตามอุปกรณ์ (เช่น Android และ iPhone/iPad ใช้กลไกต่างกัน) จึงควรทดสอบกับเครื่องที่ผู้เรียนใช้จริง</p></section>
+<section><h3>4.4 งานปฏิบัติและเกณฑ์ที่เสนอ</h3>
+<p>สร้างหน้าเว็บ WebAR ที่แสดงโมเดลสามมิติหนึ่งชิ้นตามวัตถุประสงค์ที่ท่านกำหนดเอง แล้วส่งลิงก์หน้าเว็บ หรือส่งภาพหน้าจอ/วิดีโอสั้นขณะเปิดโหมด AR</p>
+<div class="scroll"><table><tr><th>เกณฑ์</th><th>คะแนน</th></tr><tr><td>วัตถุประสงค์การเรียนรู้ชัดเจน</td><td>3</td></tr><tr><td>โมเดลแสดงผลได้ถูกต้อง</td><td>3</td></tr><tr><td>เปิดโหมด AR ได้ หรือมีหลักฐานการทดสอบ</td><td>2</td></tr><tr><td>มี alt และทางเลือกสำรอง</td><td>2</td></tr><tr><td><b>รวม</b></td><td><b>10</b></td></tr></table></div>
+<p class="muted">เกณฑ์นี้เป็นข้อเสนอ ผู้สอนอาจปรับได้</p></section>`,
+  inline:[
+   {q:'แอตทริบิวต์ใดบนแท็ก model-viewer ที่ใช้เปิดความสามารถโหมด AR',c:['ar','play','loop','mute'],a:0,e:'แอตทริบิวต์ ar ใช้เปิดปุ่มโหมด AR ส่วน camera-controls ใช้ให้ผู้ใช้หมุนและซูมโมเดลได้'},
+   {q:'โมเดลไม่แสดงเพราะ src เป็นลิงก์แชร์ที่เปิดเป็นหน้าเว็บ ควรแก้อย่างไร',c:['เปลี่ยนเป็นลิงก์ https ที่ชี้ถึงไฟล์ .glb โดยตรง','ลบแอตทริบิวต์ alt','เปลี่ยนนามสกุลไฟล์เป็น .txt','ลดความสว่างหน้าจอ'],a:0,e:'src ต้องเป็นลิงก์ที่ให้ตัวไฟล์ .glb โดยตรงและเรียกใช้ข้ามเว็บได้'}
+  ]},
+{ title:'การทดสอบและประเมินสื่อ AR', min:15,
+  obj:['อธิบายขั้นตอนการทดสอบการใช้งานกับผู้ใช้จริงได้','คำนวณค่า IOC และแปลผลตามเกณฑ์ 0.50 ได้','อธิบายเกณฑ์ E1/E2 (80/80) และคำนวณ normalized gain ได้'],
+  html:`<section><h3>5.1 ทดสอบการใช้งานกับผู้ใช้จริง</h3>
+<ol><li>เลือกผู้ใช้ที่ใกล้เคียงกลุ่มเป้าหมายจำนวนน้อย</li><li>ให้ทำภารกิจตามที่กำหนด โดยผู้พัฒนาสังเกตและไม่ช่วยเหลือเกินจำเป็น</li><li>บันทึกจุดที่ผู้ใช้สับสน ขั้นตอนที่ใช้เวลานาน และอุปกรณ์ที่ใช้</li><li>ปรับปรุงสื่อแล้วทดสอบซ้ำ</li></ol>
+<p class="muted">ขั้นตอนข้างต้นเป็นแนวปฏิบัติทั่วไป ไม่ได้อ้างอิงแหล่งใดแหล่งหนึ่งโดยเฉพาะ</p></section>
+<section><h3>5.2 คุณภาพโดยผู้เชี่ยวชาญ: ค่า IOC</h3>
+<p>ผู้เชี่ยวชาญแต่ละคนให้คะแนนความสอดคล้องของแต่ละข้อ: +1 (สอดคล้อง) 0 (ไม่แน่ใจ) −1 (ไม่สอดคล้อง) ค่า IOC คำนวณจาก</p>
+<div class="box-sub"><b>IOC = ΣR ÷ N</b> เมื่อ R คือคะแนนของผู้เชี่ยวชาญแต่ละคน และ N คือจำนวนผู้เชี่ยวชาญ</div>
+<p>เกณฑ์ที่ใช้คือ IOC ≥ 0.50 (Rovinelli &amp; Hambleton, 1977)<br><b>ตัวอย่าง:</b> ผู้เชี่ยวชาญ 5 คน ให้ +1, +1, +1, 0, +1 → IOC = 4 ÷ 5 = 0.80 ผ่านเกณฑ์</p></section>
+<section><h3>5.3 ประสิทธิภาพ: E1/E2 เกณฑ์ 80/80</h3>
+<div class="box-sub">E1 = [(ΣX ÷ N) ÷ A] × 100 &nbsp;&nbsp; E2 = [(ΣF ÷ N) ÷ B] × 100</div>
+<p>X คือคะแนนระหว่างเรียนหรือคะแนนงานของผู้เรียนแต่ละคน A คือคะแนนเต็มของส่วนนั้น F คือคะแนนหลังเรียน B คือคะแนนเต็มหลังเรียน N คือจำนวนผู้เรียน เกณฑ์ 80/80 หมายความว่า E1 และ E2 ควรได้อย่างน้อยร้อยละ 80</p>
+<p class="muted">สูตรและเกณฑ์นี้เป็นรูปแบบที่ใช้กันทั่วไปในงานพัฒนาสื่อของไทย ผู้สอนควรตรวจกับเอกสารต้นทางที่ใช้อ้างอิงในรายวิชา</p></section>
+<section><h3>5.4 ประสิทธิผล: normalized gain</h3>
+<div class="box-sub"><b>g = (หลัง − ก่อน) ÷ (คะแนนเต็ม − ก่อน)</b></div>
+<p>Hake (1998) ใช้ค่านี้กับ<b>ค่าเฉลี่ยของกลุ่ม</b> โดยจัดช่วงเป็น ต่ำ (g &lt; 0.3) ปานกลาง (0.3 ≤ g ≤ 0.7) และสูง (g &gt; 0.7) ค่ารายบุคคลใช้ดูประกอบเท่านั้น หากคะแนนก่อนเรียนเต็ม จะคำนวณไม่ได้เพราะตัวหารเป็นศูนย์</p>
+<p><b>ตัวอย่าง:</b> ก่อน 4 หลัง 8 เต็ม 10 → g = (8 − 4) ÷ (10 − 4) = 0.67</p></section>`,
+  inline:[
+   {q:'เกณฑ์ E1/E2 เท่ากับ 80/80 หมายความว่าอย่างไร',c:['E1 และ E2 ควรได้อย่างน้อยร้อยละ 80 ทั้งสองค่า','ผู้เรียน 80 คน ต้องผ่าน 80 ข้อ','ใช้เวลาเรียน 80 นาที','คะแนนเต็มคือ 80'],a:0,e:'เกณฑ์ 80/80 คือ ประสิทธิภาพของกระบวนการ (E1) และผลลัพธ์ (E2) ควรไม่ต่ำกว่าร้อยละ 80'},
+   {q:'ค่า normalized gain เฉลี่ยของกลุ่มเท่ากับ 0.45 ตามช่วงของ Hake (1998) อยู่ในระดับใด',c:['ต่ำ','ปานกลาง','สูง','คำนวณไม่ได้'],a:1,e:'0.3 ≤ g ≤ 0.7 จัดเป็นระดับปานกลาง'}
+  ]}
+];
+
+const QUIZ = {
+A:[
+{o:'1.1',q:'ข้อใดไม่ใช่ลักษณะสำคัญของระบบความจริงเสริมตามที่ Azuma (1997) เสนอ',c:['รวมวัตถุจริงกับวัตถุเสมือนเข้าด้วยกัน','โต้ตอบกับผู้ใช้ได้แบบเรียลไทม์','ลงตำแหน่งวัตถุเสมือนให้สัมพันธ์กับโลกจริงในสามมิติ','ผู้ใช้ต้องมองไม่เห็นสภาพแวดล้อมจริงเลย'],a:3,e:'สามข้อแรกเป็นลักษณะตามนิยามของ Azuma ส่วนการมองไม่เห็นโลกจริงเลยขัดกับแนวคิดที่ AR ต้องรวมของจริงกับของเสมือน'},
+{o:'1.2',q:'ตามแนวคิดของ Milgram & Kishino (1994) ปลายทั้งสองด้านของความต่อเนื่องความจริง–เสมือนคือข้อใด',c:['ภาพนิ่งกับภาพเคลื่อนไหว','อุปกรณ์สวมศีรษะกับจอมือถือ','สภาพแวดล้อมจริงกับสภาพแวดล้อมเสมือน','ซอฟต์แวร์กับฮาร์ดแวร์'],a:2,e:'ความต่อเนื่องนี้มีปลายด้านหนึ่งเป็นสภาพแวดล้อมจริง อีกด้านเป็นสภาพแวดล้อมเสมือน'},
+{o:'2.1',q:'นักเรียนส่องกล้องมือถือไปที่ภาพบนใบงานแล้วโมเดลปรากฏเหนือภาพนั้น ภาพบนใบงานทำหน้าที่ใดในระบบแบบ marker-based',c:['เป็นพิกัด GPS','เป็นตัวระบุตำแหน่งให้ระบบแสดงวัตถุเสมือน','เป็นแหล่งฉายแสง','เป็นไมโครโฟนรับเสียง'],a:1,e:'ในระบบ marker-based ภาพหรือรหัสที่กำหนดไว้ทำหน้าที่ระบุตำแหน่งแสดงวัตถุเสมือน'},
+{o:'2.3',q:'ข้อใดเป็นข้อจำกัดของการใช้สื่อ AR ในห้องเรียนที่ผู้สอนควรวางแผนรองรับ',c:['AR ไม่สามารถใช้กล้องมือถือได้','ผู้เรียนทุกคนต้องใช้อุปกรณ์เครื่องเดียวกัน','AR ต้องใช้ในที่มืดสนิทเท่านั้น','อุปกรณ์ของผู้เรียนบางคนอาจไม่รองรับ หรือแสงและสัญญาณอินเทอร์เน็ตอาจไม่เพียงพอ'],a:3,e:'ข้อจำกัดที่พบ ได้แก่ อุปกรณ์ แสง และอินเทอร์เน็ต ส่วนข้ออื่นไม่เป็นความจริง'},
+{o:'3.1',q:'ลำดับขั้นใดเหมาะสมที่สุดในการออกแบบสื่อ AR เพื่อการเรียนรู้',c:['เลือกเทคโนโลยี → พัฒนา → เขียนวัตถุประสงค์ → ทดสอบ','พัฒนา → เลือกเทคโนโลยี → ทดสอบ → เขียนวัตถุประสงค์','เขียนวัตถุประสงค์ → เลือกเทคโนโลยี → พัฒนา → ทดสอบและปรับปรุง','ทดสอบ → พัฒนา → เลือกเทคโนโลยี → เขียนวัตถุประสงค์'],a:2,e:'ควรกำหนดวัตถุประสงค์ก่อน เพื่อให้การเลือกเทคโนโลยีสนองเป้าหมายการเรียนรู้'},
+{o:'3.2',q:'การวางข้อความอธิบายไว้ใกล้ส่วนของภาพที่เกี่ยวข้อง ตรงกับหลักการออกแบบสื่อมัลติมีเดียของ Mayer ข้อใด',c:['หลักความต่อเนื่องเชิงพื้นที่ (spatial contiguity)','หลักความสอดคล้อง (coherence)','หลักการแบ่งส่วน (segmenting)','หลักการชี้นำ (signaling)'],a:0,e:'การวางคำอธิบายใกล้ส่วนที่เกี่ยวข้องคือหลักความต่อเนื่องเชิงพื้นที่'},
+{o:'4.1',q:'แท็ก HTML ใดใช้แสดงโมเดล .glb และเปิดโหมด AR ในบทปฏิบัติของรายวิชานี้',c:['<img>','<model-viewer>','<audio>','<canvas-ar>'],a:1,e:'บทปฏิบัติใช้ <model-viewer> ซึ่งเป็นองค์ประกอบเว็บสำหรับแสดงโมเดลสามมิติ'},
+{o:'4.2',q:'โมเดลไม่แสดงในหน้าเว็บ เพราะ src เป็นลิงก์แชร์ที่เปิดเป็นหน้าเว็บ ไม่ใช่ตัวไฟล์ .glb ควรแก้อย่างไร',c:['เปลี่ยนนามสกุลเป็น .pdf','ลบแอตทริบิวต์ alt ออก','ลดความสว่างหน้าจอ','ใช้ลิงก์ https ที่ชี้ถึงไฟล์ .glb โดยตรง และโฮสต์ต้องอนุญาตให้หน้าเว็บอื่นเรียกใช้ได้'],a:3,e:'src ต้องชี้ถึงตัวไฟล์โดยตรง และเว็บที่ฝากไฟล์ต้องอนุญาตการเรียกใช้ข้ามเว็บ'},
+{o:'5.2',q:'ผู้เชี่ยวชาญ 5 คนประเมินข้อหนึ่ง ให้ +1 สามคน, 0 หนึ่งคน, −1 หนึ่งคน ค่า IOC และผลเมื่อเทียบเกณฑ์ 0.50 คือข้อใด',c:['0.40 ต่ำกว่าเกณฑ์ ควรปรับปรุง','0.60 ผ่านเกณฑ์','0.80 ผ่านเกณฑ์','0.20 ต่ำกว่าเกณฑ์ ควรปรับปรุง'],a:0,e:'IOC = (3 + 0 − 1) ÷ 5 = 0.40 ซึ่งต่ำกว่า 0.50'},
+{o:'5.3',q:'ผู้เรียนได้คะแนนก่อนเรียน 2 หลังเรียน 8 จากคะแนนเต็ม 10 ค่า normalized gain รายบุคคลเท่าใด',c:['0.60','0.75','0.80','0.25'],a:1,e:'g = (8 − 2) ÷ (10 − 2) = 0.75'}
+],
+B:[
+{o:'1.1',q:'ระบบใดเข้าเกณฑ์ความจริงเสริมตามนิยามของ Azuma (1997) มากที่สุด',c:['วิดีโอบรรยายที่มีภาพกราฟิกซ้อนทับ โดยกราฟิกไม่เปลี่ยนตามมุมกล้อง','แอปที่แสดงโมเดล 3 มิติบนโต๊ะจริงผ่านกล้อง และโมเดลคงตำแหน่งเดิมเมื่อผู้ใช้ขยับมือถือ','เกมที่แสดงโลกจำลองทั้งหมดบนหน้าจอโดยไม่ใช้ภาพจากกล้อง','ภาพถ่าย 360 องศาของห้องเรียนที่หมุนดูได้'],a:1,e:'ข้อนี้รวมของจริงกับของเสมือน โต้ตอบได้ และลงตำแหน่งสัมพันธ์กับโลกจริง'},
+{o:'1.2',q:'ในความต่อเนื่องความจริง–เสมือน คำว่า "ความจริงผสม" (mixed reality) หมายถึงข้อใด',c:['ช่วงระหว่างสภาพแวดล้อมจริงกับสภาพแวดล้อมเสมือน ซึ่งรวมความจริงเสริมไว้ด้วย','สภาพแวดล้อมเสมือนที่ผู้ใช้มองไม่เห็นโลกจริงเลย','สภาพแวดล้อมจริงที่ไม่มีวัตถุเสมือนใด ๆ','เฉพาะระบบที่ใช้แว่นตาสามมิติเท่านั้น'],a:0,e:'ตามแนวคิดของ Milgram & Kishino ความจริงผสมคือช่วงระหว่างปลายทั้งสอง'},
+{o:'2.1',q:'AR ที่ใช้ตำแหน่ง GPS เข็มทิศ หรือเซนเซอร์ในเครื่อง เพื่อแสดงข้อมูลตามที่ผู้เรียนยืนอยู่ จัดเป็นชนิดใด',c:['projection-based','marker-based','location-based','ไม่จัดเป็น AR'],a:2,e:'การใช้ตำแหน่งเป็นหลักในการแสดงข้อมูลคือ location-based AR'},
+{o:'2.3',q:'ประเด็นความเป็นส่วนตัวที่เกี่ยวข้องกับ AR บนมือถือโดยตรงคือข้อใด',c:['กล้องอาจบันทึกภาพบุคคลหรือพื้นที่ส่วนตัวโดยไม่ตั้งใจ จึงควรแจ้งและขออนุญาตก่อนใช้','หน้าจอมือถือมีขนาดเล็กเกินไป','โมเดลสามมิติมีขนาดไฟล์ใหญ่','ผู้เรียนต้องจดจำรหัสผ่านหลายชุด'],a:0,e:'AR ใช้กล้องตลอดเวลา จึงเสี่ยงบันทึกภาพผู้อื่นหรือพื้นที่ส่วนตัว'},
+{o:'3.1',q:'ผู้สอนพบแอป AR ที่น่าสนใจและต้องการนำมาใช้ทันที ควรทำสิ่งใดก่อน',c:['ซื้อใบอนุญาตให้ทั้งชั้นเรียน','กำหนดว่าผู้เรียนควรทำอะไรได้หลังเรียน แล้วพิจารณาว่า AR ช่วยบรรลุเป้าหมายนั้นได้หรือไม่','ให้ผู้เรียนติดตั้งแอปทุกคนก่อน','เพิ่มภาพเคลื่อนไหวให้มากที่สุด'],a:1,e:'ควรเริ่มจากวัตถุประสงค์การเรียนรู้ แล้วจึงตัดสินใจเรื่องเทคโนโลยี'},
+{o:'3.2',q:'การตัดภาพประกอบ เสียงดนตรี หรือข้อความที่ไม่เกี่ยวกับเป้าหมายการเรียนออก เพื่อลดภาระทางปัญญาที่ไม่จำเป็น ตรงกับหลักการของ Mayer ข้อใด',c:['หลักการชี้นำ (signaling)','หลักความสอดคล้อง (coherence)','หลักความต่อเนื่องเชิงพื้นที่ (spatial contiguity)','หลักการแบ่งส่วน (segmenting)'],a:1,e:'การตัดสิ่งที่ไม่เกี่ยวข้องออกคือหลักความสอดคล้อง'},
+{o:'4.1',q:'ไฟล์โมเดลสามมิติรูปแบบใดที่ใช้กับ <model-viewer> ในบทปฏิบัติของรายวิชานี้',c:['.glb','.docx','.xlsx','.psd'],a:0,e:'บทปฏิบัติใช้ไฟล์ .glb (รูปแบบ glTF แบบไบนารี)'},
+{o:'4.2',q:'ผู้เรียนต้องการทดสอบโหมด AR ของหน้าเว็บที่สร้างขึ้น ควรทำอย่างไร',c:['เปิดหน้าเว็บบนคอมพิวเตอร์แล้วกดพิมพ์','ส่งไฟล์ .glb ทางอีเมลอย่างเดียว','เปิดหน้าเว็บผ่าน https บนมือถือที่รองรับ แล้วกดปุ่ม AR','ปิดการเชื่อมต่ออินเทอร์เน็ตก่อนทดสอบ'],a:2,e:'โหมด AR ทดสอบได้บนอุปกรณ์เคลื่อนที่ที่รองรับ โดยเปิดหน้าเว็บผ่าน https'},
+{o:'5.2',q:'ผู้เชี่ยวชาญ 5 คนประเมินข้อหนึ่ง ให้ +1 สี่คน และ 0 หนึ่งคน ค่า IOC และผลเมื่อเทียบเกณฑ์ 0.50 คือข้อใด',c:['0.60 ต่ำกว่าเกณฑ์','0.80 ผ่านเกณฑ์','1.00 ผ่านเกณฑ์','0.40 ต่ำกว่าเกณฑ์'],a:1,e:'IOC = (4 + 0) ÷ 5 = 0.80 ซึ่งไม่ต่ำกว่า 0.50'},
+{o:'5.3',q:'ผู้เรียนได้คะแนนก่อนเรียน 4 หลังเรียน 8 จากคะแนนเต็ม 10 ค่า normalized gain รายบุคคลเท่าใด',c:['0.40','0.50','0.67','0.80'],a:2,e:'g = (8 − 4) ÷ (10 − 4) = 0.67'}
+]};
+
+/* ---------- ตัวช่วย ---------- */
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function safeUrl(u){
+  try{ const x = new URL(String(u).trim()); return (x.protocol==='http:'||x.protocol==='https:') ? x.href : null; }
+  catch(e){ return null; }
+}
+const fmt = (n,d=2) => (n==null || isNaN(Number(n))) ? '-' : Number(n).toFixed(d);
+const fullName = r => esc(`${r.title||''}${r.first_name||''} ${r.last_name||''}`.trim());
+const $app = document.getElementById('app');
+let sb = null;
+const S = { user:null, role:null, me:null, noRoster:false, progress:new Set(), attempts:{}, view:'intro', inl:{}, authTab:'login', rt:0 };
+
+function thaiError(e){
+  const m = String((e && (e.message || e.error_description)) || e || '').toLowerCase();
+  const c = e && (e.code || e.statusCode);
+  if (m.includes('invalid login')) return 'รหัสนักเรียน/อีเมล หรือรหัสผ่านไม่ถูกต้อง';
+  if (m.includes('already registered') || m.includes('already been registered')) return 'รหัสนี้สมัครแล้ว กรุณาเข้าสู่ระบบ';
+  if (m.includes('database error saving new user')) return 'สมัครไม่สำเร็จ: รหัสนักเรียนไม่อยู่ในรายชื่อรายวิชา หรือถูกใช้สมัครไปแล้ว หากแน่ใจว่ารหัสถูกต้อง กรุณาแจ้งครูผู้สอน';
+  if (m.includes('rate limit') || m.includes('too many')) return 'ทำรายการถี่เกินไป กรุณารอสักครู่แล้วลองใหม่';
+  if (m.includes('failed to fetch') || m.includes('network')) return 'เชื่อมต่ออินเทอร์เน็ตไม่ได้ กรุณาตรวจสอบสัญญาณแล้วลองใหม่';
+  if (m.includes('email') && m.includes('invalid')) return 'ระบบไม่รับรูปแบบอีเมลภายใน กรุณาแจ้งครูผู้สอน';
+  if (m.includes('exceeded') || m.includes('too large') || m.includes('payload')) return 'ไฟล์มีขนาดใหญ่เกินกำหนด';
+  if (m.includes('mime') || m.includes('not allowed') && m.includes('type')) return 'ชนิดไฟล์ไม่ได้รับอนุญาต';
+  if (c === '23505' || m.includes('duplicate')) return 'ทำรายการนี้ไปแล้ว';
+  if (m.includes('row-level security') || c === '42501' || m.includes('permission denied')) return 'ไม่มีสิทธิ์ทำรายการนี้';
+  return 'เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง หากยังไม่สำเร็จให้แจ้งครูผู้สอน';
+}
+function notify(text, type){
+  const el = document.getElementById('msg'); if(!el) return;
+  el.innerHTML = `<div class="m ${type==='ok'?'ok':'err'}" role="status">${esc(text)}</div>`;
+  el.scrollIntoView({block:'nearest'});
+}
+const setBusy = (btn,on) => { if(btn){ btn.disabled = on; } };
+const setFor = kind => {
+  const odd = (parseInt(S.me.id.slice(-1),10) % 2) === 1;
+  const pre = odd ? 'B' : 'A';
+  return kind === 'pre' ? pre : (pre === 'A' ? 'B' : 'A');
+};
+const ngain = (pre,post,max=10) => (pre==null||post==null||max-pre<=0) ? null : (post-pre)/(max-pre);
+const MIME_FILE = {png:'image/png',jpg:'image/jpeg',jpeg:'image/jpeg',pdf:'application/pdf',mp4:'video/mp4'};
+const MIME_MAT = {pptx:'application/vnd.openxmlformats-officedocument.presentationml.presentation',docx:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',pdf:'application/pdf'};
+const extOf = n => { const m = /\.([A-Za-z0-9]+)$/.exec(n||''); return m ? m[1].toLowerCase() : ''; };
+const rand = () => Math.random().toString(36).slice(2,8);
+
+async function signed(bucket, paths){
+  const out = {}; const list = [...new Set(paths.filter(Boolean))];
+  if(!list.length) return out;
+  const {data,error} = await sb.storage.from(bucket).createSignedUrls(list, 3600);
+  if(error || !data) return out;
+  data.forEach(d => { if(d && d.signedUrl && !d.error) out[d.path] = d.signedUrl; });
+  return out;
+}
+const linkTag = (href,label) => href ? `<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a>` : '<span class="muted">(ลิงก์ไม่พร้อมใช้งาน)</span>';
+
+/* ---------- เริ่มระบบ ---------- */
+function setupPage(){
+  $app.innerHTML = `<div class="wrap"><div class="card"><h1>ยังไม่ได้ตั้งค่าการเชื่อมต่อ</h1>
+  <p>ไฟล์นี้ยังไม่มีค่า URL และ anon key ของ Supabase กรุณาทำดังนี้</p>
+  <ol><li>เปิดไฟล์ courseware.html ด้วยโปรแกรมแก้ไขข้อความ</li>
+  <li>ค้นหาบรรทัด <code>const SUPABASE_URL</code> และ <code>const SUPABASE_ANON_KEY</code> ใกล้ต้นไฟล์</li>
+  <li>นำค่า Project URL และ anon (public) key จากหน้า Project Settings &gt; API ของ Supabase ไปใส่ในเครื่องหมายคำพูด</li>
+  <li>ห้ามใส่คีย์ลับของผู้ดูแลระบบ (secret key) ในไฟล์นี้</li><li>บันทึกไฟล์แล้วเปิดใหม่</li></ol></div></div>`;
+}
+function libMissing(){
+  $app.innerHTML = `<div class="wrap"><div class="card"><h1>โหลดส่วนประกอบของระบบไม่สำเร็จ</h1><p>กรุณาตรวจสอบการเชื่อมต่ออินเทอร์เน็ตแล้วโหลดหน้านี้ใหม่</p></div></div>`;
+}
+async function boot(){
+  try{
+    const {data} = await sb.auth.getSession();
+    const session = data && data.session;
+    if(!session){ S.user=null; S.role=null; return render(); }
+    S.user = session.user;
+    const t = await sb.from('teachers').select('user_id').eq('user_id', S.user.id).maybeSingle();
+    if(t.error) throw t.error;
+    if(t.data){ S.role='teacher'; S.view='t-results'; }
+    else { S.role='student'; await loadStudent(); S.view='intro'; }
+    await render();
+  }catch(e){ console.error(e); $app.innerHTML = `<div class="wrap"><div class="card"><p>${esc(thaiError(e))}</p><button class="btn" data-act="logout">ออกจากระบบ</button></div></div>`; }
+}
+async function loadStudent(){
+  const me = await sb.from('students').select('*').eq('user_id', S.user.id).maybeSingle();
+  if(me.error) throw me.error;
+  S.me = me.data; S.noRoster = !me.data;
+  S.progress = new Set(); S.attempts = {}; S.inl = {};
+  if(!me.data) return;
+  const [p,a] = await Promise.all([
+    sb.from('progress').select('unit,done').eq('user_id', S.user.id),
+    sb.from('attempts').select('kind,score,answers,created_at').eq('user_id', S.user.id)
+  ]);
+  if(p.error) throw p.error; if(a.error) throw a.error;
+  (p.data||[]).forEach(r => { if(r.done) S.progress.add(r.unit); });
+  (a.data||[]).forEach(r => { S.attempts[r.kind] = r; });
+}
+
+/* ---------- แสดงผลหลัก ---------- */
+function loginHtml(){
+  const reg = S.authTab === 'register';
+  return `<div class="auth-wrap"><div class="card"><h1>${esc(COURSE.title)}</h1><p class="muted">${esc(COURSE.sub)}</p>
+  <div class="tabs"><button class="${reg?'':'on'}" data-act="authtab" data-t="login">เข้าสู่ระบบ</button><button class="${reg?'on':''}" data-act="authtab" data-t="register">สมัครใช้งาน</button></div>
+  <div id="msg"></div>
+  ${reg ? `<form data-form="register" autocomplete="off">
+    <label for="rid">รหัสประจำตัวนักเรียน (11 หลัก)</label><input id="rid" name="ident" type="text" inputmode="numeric" maxlength="11" required>
+    <label for="rp1">ตั้งรหัสผ่าน (อย่างน้อย 8 ตัวอักษร)</label><input id="rp1" name="pw" type="password" minlength="8" autocomplete="new-password" required>
+    <label for="rp2">ยืนยันรหัสผ่าน</label><input id="rp2" name="pw2" type="password" minlength="8" autocomplete="new-password" required>
+    <p class="muted">ระบบจะตรวจรหัสกับรายชื่อรายวิชา กรุณาจำรหัสผ่านของตนเอง</p>
+    <button class="btn" type="submit">สมัครใช้งาน</button></form>`
+  : `<form data-form="login">
+    <label for="lid">รหัสประจำตัวนักเรียน (11 หลัก) หรืออีเมลครูผู้สอน</label><input id="lid" name="ident" type="text" autocapitalize="none" autocomplete="username" required>
+    <label for="lpw">รหัสผ่าน</label><input id="lpw" name="pw" type="password" autocomplete="current-password" required>
+    <p></p><button class="btn" type="submit">เข้าสู่ระบบ</button></form>`}
+  </div></div>`;
+}
+const NAV = [['intro','แนะนำ'],['pre','ก่อนเรียน'],['unit1','หน่วย 1'],['unit2','หน่วย 2'],['unit3','หน่วย 3'],['unit4','หน่วย 4'],['unit5','หน่วย 5'],['post','หลังเรียน'],['summary','สรุปผล'],['materials','สื่อเพิ่มเติม'],['profile','โปรไฟล์'],['submit','ส่งงาน']];
+function canGo(v){
+  const pre = !!S.attempts.pre, post = !!S.attempts.post;
+  if(v==='intro'||v==='pre'||v==='materials'||v==='profile'||v==='submit') return true;
+  if(v.startsWith('unit')){ const n=+v.slice(4); return pre && (n===1 || S.progress.has(n-1) || S.progress.has(n)); }
+  if(v==='post') return pre && S.progress.size>=5;
+  if(v==='summary') return post;
+  return false;
+}
+function shell(brand, items, canFn){
+  return `<header class="top"><div class="in"><div><b>${esc(COURSE.title)}</b><small>${brand}</small></div><button class="btn alt sm" data-act="logout">ออกจากระบบ</button></div></header>
+  <nav class="menu" aria-label="เมนู"><div class="in">${items.map(([v,l])=>`<button class="${S.view===v?'on':''}" data-act="go" data-v="${v}" ${canFn(v)?'':'disabled'}>${l}</button>`).join('')}</div></nav>
+  <div class="wrap"><div id="msg"></div><main id="main"><p class="muted">กำลังโหลด...</p></main></div>`;
+}
+const TNAV = [['t-results','ผลรายคน'],['t-subs','ตรวจงาน'],['t-mat','จัดการสื่อ'],['t-csv','ส่งออก CSV']];
+
+async function render(){
+  const tk = ++S.rt;
+  if(!S.user){ $app.innerHTML = loginHtml(); return; }
+  if(S.role==='student' && S.noRoster){
+    $app.innerHTML = `<div class="wrap"><div class="card"><h1>บัญชียังไม่ผูกกับรายชื่อ</h1><p>บัญชีนี้ยังไม่ถูกผูกกับรายชื่อรายวิชา กรุณาแจ้งครูผู้สอน</p><button class="btn" data-act="logout">ออกจากระบบ</button></div></div>`; return;
+  }
+  if(S.role==='teacher') $app.innerHTML = shell('สำหรับครูผู้สอน', TNAV, ()=>true);
+  else $app.innerHTML = shell(`${esc(S.me.title||'')}${esc(S.me.first_name)} ${esc(S.me.last_name)} (${esc(S.me.id)})`, NAV, canGo);
+  const main = document.getElementById('main');
+  try{
+    const html = await viewHtml();
+    if(tk !== S.rt) return;
+    main.innerHTML = html;
+  }catch(e){ console.error(e); if(tk===S.rt) main.innerHTML = `<div class="fb bad">${esc(thaiError(e))}</div>`; }
+  window.scrollTo(0,0);
+}
+async function go(v){ S.view = v; await render(); }
+
+async function viewHtml(){
+  const v = S.view;
+  if(S.role==='teacher'){
+    if(v==='t-results') return tResults();
+    if(v==='t-subs') return tSubs();
+    if(v==='t-mat') return tMaterials();
+    if(v==='t-csv') return tCsv();
+  } else {
+    if(v==='intro') return introHtml();
+    if(v==='pre'||v==='post') return quizView(v);
+    if(v.startsWith('unit')) return unitView(+v.slice(4));
+    if(v==='summary') return summaryView();
+    if(v==='materials') return studentMaterials();
+    if(v==='profile') return profileView();
+    if(v==='submit') return `<article class="card"><h2>ส่งงานปฏิบัติ</h2>${await submissionBlock()}</article>`;
+  }
+  return '';
+}
+
+/* ---------- มุมมองผู้เรียน ---------- */
+function introHtml(){
+  return `<article class="card"><h2>แนะนำบทเรียน</h2>
+  <p>บทเรียนนี้เป็นบทเรียนคอมพิวเตอร์ช่วยสอน (CAI) เรื่องความจริงเสริมเพื่อการเรียนรู้ ใช้เวลาประมาณ 60–90 นาที (รวมแบบทดสอบ)</p>
+  <div class="box-main"><h3>ลำดับการเรียน</h3><ol><li>ทำแบบทดสอบก่อนเรียน (ทำได้ครั้งเดียว ไม่แสดงเฉลย)</li><li>เรียนหน่วยที่ 1–5 ตามลำดับ ต้องตอบคำถามระหว่างเรียนให้ถูกจึงไปหน่วยถัดไป และย้อนกลับมาทบทวนได้</li><li>ทำแบบทดสอบหลังเรียน (ทำได้ครั้งเดียว แสดงเฉลยและคำอธิบาย)</li><li>ดูสรุปผล สื่อเพิ่มเติม และส่งงานปฏิบัติ</li></ol></div>
+  <div class="scroll"><table><tr><th>หน่วย</th><th>เรื่อง</th><th>เวลา (นาที)</th></tr>${UNITS.map((u,i)=>`<tr><td>${i+1}</td><td>${esc(u.title)}</td><td>${u.min}</td></tr>`).join('')}</table></div>
+  <div class="nav-row"><button class="btn" data-act="go" data-v="pre">เริ่มทำแบบทดสอบก่อนเรียน</button></div></article>`;
+}
+function quizForm(kind){
+  const qs = QUIZ[setFor(kind)];
+  return `<form data-form="quiz" data-kind="${kind}">` + qs.map((q,i)=>`<fieldset class="qz"><legend><b>ข้อ ${i+1}.</b> ${esc(q.q)}</legend>${q.c.map((t,k)=>`<label class="radio"><input type="radio" name="q${i}" value="${k}"><span>${esc(t)}</span></label>`).join('')}</fieldset>`).join('') + `<button class="btn" type="submit">ส่งคำตอบ</button></form>`;
+}
+function reviewHtml(kind, att){
+  const a = att.answers || {}; const set = a.set || setFor(kind); const ch = a.choices || [];
+  return QUIZ[set].map((q,i)=>{
+    const ok = ch[i] === q.a;
+    const unit = q.o.split('.')[0];
+    return `<div class="card"><p><b>ข้อ ${i+1}.</b> ${esc(q.q)}</p>
+    <p>คำตอบของท่าน: <span class="fb ${ok?'ok':'bad'}" style="display:inline-block;margin:0">${ch[i]==null?'ไม่ได้ตอบ':esc(q.c[ch[i]])}</span></p>
+    <p>เฉลย: <b>${esc(q.c[q.a])}</b></p><p>เหตุผล: ${esc(q.e)}</p>
+    <p class="muted">สอดคล้องกับวัตถุประสงค์ข้อ ${esc(q.o)} (หน่วยที่ ${esc(unit)})</p></div>`;
+  }).join('');
+}
+function quizView(kind){
+  const att = S.attempts[kind];
+  const title = kind==='pre' ? 'แบบทดสอบก่อนเรียน' : 'แบบทดสอบหลังเรียน';
+  if(!att){
+    if(kind==='post' && !canGo('post')) return `<article class="card"><h2>${title}</h2><p>ต้องเรียนครบหน่วยที่ 1–5 ก่อน</p></article>`;
+    return `<article class="card"><h2>${title}</h2><p>มี 10 ข้อ เลือกคำตอบข้อละหนึ่งตัวเลือก <b>ส่งได้ครั้งเดียว</b> ${kind==='pre'?'และไม่แสดงเฉลยในขั้นนี้':'หลังส่งจะแสดงเฉลยและคำอธิบาย'}</p>${quizForm(kind)}</article>`;
+  }
+  if(kind==='pre') return `<article class="card"><h2>${title}</h2><p>ท่านทำแบบทดสอบนี้แล้ว คะแนน <b>${att.score}/10</b> (ไม่แสดงเฉลยในขั้นก่อนเรียน)</p><div class="nav-row"><button class="btn" data-act="go" data-v="unit1">ไปหน่วยที่ 1</button></div></article>`;
+  return `<article class="card"><h2>${title}</h2><p>คะแนน <b>${att.score}/10</b></p><div class="nav-row"><button class="btn" data-act="go" data-v="summary">ดูสรุปผล</button></div></article>${reviewHtml('post',att)}`;
+}
+function inlineBlock(n,i){
+  const q = UNITS[n-1].inline[i]; const st = (S.inl[n]||{})[i];
+  const opts = q.c.map((t,k)=>`<button type="button" class="opt ${st&&st.sel===k?(st.ok?'ok':'bad'):''}" data-act="inl" data-u="${n}" data-q="${i}" data-o="${k}" ${st&&st.ok?'disabled':''}>${esc(t)}</button>`).join('');
+  const fb = st ? `<div class="fb ${st.ok?'ok':'bad'}"><b>${st.ok?'ถูกต้อง':'ยังไม่ถูกต้อง'}</b> ${esc(q.e)}${st.ok?'':' กรุณาเลือกใหม่'}</div>` : '';
+  return `<div class="iq" id="iq-${n}-${i}"><p><b>คำถามที่ ${i+1}.</b> ${esc(q.q)}</p><div class="opts">${opts}</div>${fb}</div>`;
+}
+const unitReady = n => S.progress.has(n) || UNITS[n-1].inline.every((_,i)=>((S.inl[n]||{})[i]||{}).ok);
+async function unitView(n){
+  if(!canGo('unit'+n)) return `<article class="card"><p>ต้องทำแบบทดสอบก่อนเรียนและเรียนหน่วยก่อนหน้าให้ครบก่อน</p></article>`;
+  const U = UNITS[n-1];
+  const extra = n===4 ? `<section><h3>4.5 ส่งงานปฏิบัติ</h3>${await submissionBlock()}</section>` : '';
+  return `<article class="card"><span class="badge">หน่วยที่ ${n}</span><h2>${esc(U.title)}</h2><p class="muted">เวลาเรียนโดยประมาณ ${U.min} นาที</p>
+  <section class="box-main"><h3>วัตถุประสงค์การเรียนรู้</h3><p>เมื่อเรียนจบหน่วยนี้ ผู้เรียนสามารถ</p><ol>${U.obj.map((o,i)=>`<li><b>${n}.${i+1}</b> ${o}</li>`).join('')}</ol></section>
+  ${U.html}
+  <section><h3>คำถามระหว่างเรียน</h3><p class="muted">ตอบให้ถูกทุกข้อจึงไปต่อได้</p>${U.inline.map((_,i)=>inlineBlock(n,i)).join('')}</section>
+  ${extra}
+  <div class="nav-row">${n>1?`<button class="btn alt" data-act="go" data-v="unit${n-1}">← ย้อนกลับ</button>`:''}
+  <button class="btn" id="nextbtn" data-act="finish" data-n="${n}" ${unitReady(n)?'':'disabled'}>${n<5?'บันทึกและไปหน่วยถัดไป':'บันทึกและไปทำแบบทดสอบหลังเรียน'}</button></div></article>`;
+}
+function summaryView(){
+  const pre = S.attempts.pre, post = S.attempts.post;
+  if(!post) return `<article class="card"><p>ยังไม่มีผลหลังเรียน</p></article>`;
+  const g = ngain(pre.score, post.score);
+  const gtxt = g==null ? 'คำนวณไม่ได้ (คะแนนก่อนเรียนเต็ม จึงไม่มีส่วนที่จะเพิ่มได้)' : fmt(g);
+  return `<article class="card"><h2>สรุปผลการเรียน</h2>
+  <div class="grid3"><div><div class="muted">ก่อนเรียน</div><div class="big">${pre.score}/10</div></div><div><div class="muted">หลังเรียน</div><div class="big">${post.score}/10</div></div><div><div class="muted">normalized gain</div><div class="big">${g==null?'-':fmt(g)}</div></div></div>
+  <p>สูตร: g = (หลัง − ก่อน) ÷ (คะแนนเต็ม − ก่อน) = (${post.score} − ${pre.score}) ÷ (10 − ${pre.score}) → ${esc(gtxt)}</p>
+  <div class="box-sub muted">หมายเหตุ: เกณฑ์ตีความของ Hake (1998) (ต่ำ &lt; 0.3, ปานกลาง 0.3–0.7, สูง &gt; 0.7) ใช้กับค่าเฉลี่ยของกลุ่ม ค่ารายบุคคลนี้ใช้ดูประกอบเท่านั้น</div>
+  <div class="nav-row"><button class="btn" data-act="go" data-v="materials">สื่อเพิ่มเติม</button><button class="btn alt" data-act="go" data-v="submit">ส่งงานปฏิบัติ</button></div></article>`;
+}
+async function studentMaterials(){
+  const r = await sb.from('materials').select('*').order('created_at',{ascending:false});
+  if(r.error) throw r.error;
+  const rows = r.data||[];
+  const urls = await signed('materials', rows.filter(x=>x.kind==='file').map(x=>x.storage_path));
+  return `<article class="card"><h2>สื่อเพิ่มเติม</h2>${rows.length ? `<ul>${rows.map(m=>{
+    let a;
+    if(m.kind==='file') a = linkTag(urls[m.storage_path], 'เปิดไฟล์'+(m.file_name?` (${m.file_name})`:''));
+    else { const u = safeUrl(m.url); a = u ? linkTag(u, m.kind==='video'?'เปิดคลิป':'เปิดลิงก์') : '<span class="muted">(ลิงก์ไม่ถูกต้อง)</span>'; }
+    return `<li><b>${esc(m.title)}</b> — ${a}</li>`; }).join('')}</ul>` : '<p class="muted">ยังไม่มีสื่อเพิ่มเติม</p>'}
+  <p class="muted">ลิงก์เปิดไฟล์ใช้ได้ชั่วคราว หากเปิดไม่ได้ให้โหลดหน้านี้ใหม่</p></article>`;
+}
+async function profileView(){
+  let img = '';
+  if(S.me.photo_path){ const u = await signed('photos',[S.me.photo_path]); if(u[S.me.photo_path]) img = `<img class="avatar" alt="รูปโปรไฟล์" src="${esc(u[S.me.photo_path])}">`; }
+  return `<article class="card"><h2>โปรไฟล์</h2><p>${esc(S.me.title||'')}${esc(S.me.first_name)} ${esc(S.me.last_name)}<br><span class="muted">รหัส ${esc(S.me.id)} กลุ่ม ${esc(S.me.section||'-')}</span></p>
+  ${img || '<p class="muted">ยังไม่มีรูปโปรไฟล์</p>'}
+  <form data-form="photo"><label for="ph">เลือกรูป (png หรือ jpg) ระบบจะย่อรูปก่อนส่ง</label><input id="ph" name="file" type="file" accept="image/png,image/jpeg" required>
+  <p class="muted">การอัปโหลดรูปเป็นทางเลือก ควรใช้รูปที่เหมาะสมและเป็นรูปของตนเอง ครูผู้สอนเท่านั้นที่เห็นรูปนี้นอกจากตัวท่านเอง</p>
+  <button class="btn" type="submit">อัปโหลดรูป</button></form></article>`;
+}
+async function submissionBlock(){
+  const r = await sb.from('submissions').select('*').eq('user_id', S.user.id).order('created_at',{ascending:false});
+  if(r.error) throw r.error;
+  const rows = r.data||[];
+  const urls = await signed('submissions', rows.filter(x=>x.kind==='file').map(x=>x.storage_path));
+  const list = rows.length ? `<div class="scroll"><table><tr><th>เมื่อ</th><th>งานที่ส่ง</th><th>คะแนน</th><th>ข้อเสนอแนะ</th><th></th></tr>${rows.map(s=>{
+    const what = s.kind==='file' ? linkTag(urls[s.storage_path],'เปิดไฟล์') : (safeUrl(s.url) ? linkTag(safeUrl(s.url),'เปิดลิงก์') : '-');
+    return `<tr><td>${esc(new Date(s.created_at).toLocaleString('th-TH'))}</td><td>${what}${s.note?`<br><span class="muted">${esc(s.note)}</span>`:''}</td><td>${s.score==null?'รอตรวจ':esc(s.score)+'/10'}</td><td>${esc(s.teacher_comment||'-')}</td><td>${s.score==null?`<button class="btn alt sm" data-act="delsub" data-id="${esc(s.id)}" data-path="${esc(s.storage_path||'')}">ลบ</button>`:''}</td></tr>`;}).join('')}</table></div>` : '<p class="muted">ยังไม่มีงานที่ส่ง</p>';
+  return `<div><p>ส่งลิงก์หน้าเว็บ WebAR หรือไฟล์ภาพหน้าจอ/วิดีโอสั้น (png, jpg, pdf, mp4 ขนาดไม่เกิน 20 MB)</p>
+  <form data-form="submission"><label for="sk">รูปแบบ</label><select id="sk" name="kind" data-act="subkind"><option value="link">ลิงก์</option><option value="file">ไฟล์</option></select>
+  <div id="sub-link"><label for="su">ลิงก์ (ขึ้นต้นด้วย http:// หรือ https://)</label><input id="su" name="url" type="url" inputmode="url"></div>
+  <div id="sub-file" hidden><label for="sf">ไฟล์</label><input id="sf" name="file" type="file" accept="image/png,image/jpeg,application/pdf,video/mp4"></div>
+  <label for="sn">หมายเหตุ (ไม่บังคับ)</label><textarea id="sn" name="note" maxlength="500"></textarea>
+  <p></p><button class="btn" type="submit">ส่งงาน</button></form>
+  <h3>งานที่ส่งแล้ว</h3>${list}<p class="muted">ลบได้เฉพาะงานที่ยังไม่ได้รับการตรวจ</p></div>`;
+}
+
+/* ---------- มุมมองผู้สอน ---------- */
+async function tResults(){
+  const r = await sb.from('results').select('*').order('id');
+  if(r.error) throw r.error;
+  const rows = r.data||[];
+  const urls = await signed('photos', rows.map(x=>x.photo_path));
+  const pres = rows.filter(x=>x.pre_score!=null).map(x=>x.pre_score), posts = rows.filter(x=>x.post_score!=null).map(x=>x.post_score);
+  const both = rows.filter(x=>x.pre_score!=null && x.post_score!=null);
+  const avg = a => a.length ? a.reduce((s,x)=>s+Number(x),0)/a.length : null;
+  const mp = avg(both.map(x=>x.pre_score)), mq = avg(both.map(x=>x.post_score));
+  const cg = (mp!=null && mq!=null && 10-mp>0) ? (mq-mp)/(10-mp) : null;
+  return `<article class="card"><h2>ผลรายคน</h2><p class="muted">ทั้งหมด ${rows.length} คน สมัครแล้ว ${rows.filter(x=>x.registered).length} คน ทำก่อนเรียน ${pres.length} คน ทำหลังเรียน ${posts.length} คน</p>
+  <div class="scroll"><table><tr><th>รูป</th><th>รหัส</th><th>ชื่อ-สกุล</th><th>กลุ่ม</th><th>สมัคร</th><th>หน่วยที่เรียน</th><th>ก่อน</th><th>หลัง</th><th>gain</th></tr>
+  ${rows.map(x=>`<tr><td>${urls[x.photo_path]?`<img class="thumb" alt="" src="${esc(urls[x.photo_path])}">`:''}</td><td>${esc(x.id)}</td><td>${fullName(x)}</td><td>${esc(x.section||'')}</td><td>${x.registered?'สมัครแล้ว':'ยังไม่สมัคร'}</td><td>${esc(x.units_done)}/5</td><td>${x.pre_score==null?'-':esc(x.pre_score)}</td><td>${x.post_score==null?'-':esc(x.post_score)}</td><td>${x.gain==null?'-':fmt(x.gain)}</td></tr>`).join('')}</table></div>
+  <div class="box-sub"><b>ค่าเฉลี่ยกลุ่ม</b> (เฉพาะผู้ที่ทำครบทั้งสองชุด ${both.length} คน): ก่อน ${fmt(mp)} หลัง ${fmt(mq)} → normalized gain ของกลุ่ม = ${cg==null?'-':fmt(cg)}<br><span class="muted">ตีความตามเกณฑ์ของ Hake (1998) ได้กับค่าเฉลี่ยกลุ่มนี้</span></div></article>`;
+}
+async function tSubs(){
+  const [s,st] = await Promise.all([
+    sb.from('submissions').select('*').order('created_at',{ascending:false}),
+    sb.from('results').select('id,title,first_name,last_name,user_id')
+  ]);
+  if(s.error) throw s.error; if(st.error) throw st.error;
+  const names = {}; (st.data||[]).forEach(x=>{ if(x.user_id) names[x.user_id]=x; });
+  const rows = s.data||[];
+  const urls = await signed('submissions', rows.filter(x=>x.kind==='file').map(x=>x.storage_path));
+  return `<article class="card"><h2>ตรวจงานที่ส่ง</h2>${rows.length?rows.map(x=>{
+    const who = names[x.user_id]; const id = esc(x.id);
+    const what = x.kind==='file' ? linkTag(urls[x.storage_path],'เปิดไฟล์') : (safeUrl(x.url)?linkTag(safeUrl(x.url),'เปิดลิงก์'):'<span class="muted">(ลิงก์ไม่ถูกต้อง)</span>');
+    return `<div class="card"><p><b>${who?fullName(who)+' ('+esc(who.id)+')':'ไม่ทราบผู้ส่ง'}</b> <span class="muted">หน่วย ${esc(x.unit)} · ${esc(new Date(x.created_at).toLocaleString('th-TH'))}</span></p>
+    <p>${what}${x.note?`<br><span class="muted">หมายเหตุ: ${esc(x.note)}</span>`:''}</p>
+    <label for="sc-${id}">คะแนน (0–10)</label><input id="sc-${id}" type="number" min="0" max="10" step="0.5" value="${x.score==null?'':esc(x.score)}">
+    <label for="cm-${id}">ข้อเสนอแนะ</label><textarea id="cm-${id}" maxlength="1000">${esc(x.teacher_comment||'')}</textarea>
+    <p></p><button class="btn sm" data-act="grade" data-id="${id}">บันทึกคะแนน</button></div>`;}).join(''):'<p class="muted">ยังไม่มีงานที่ส่ง</p>'}</article>`;
+}
+async function tMaterials(){
+  const r = await sb.from('materials').select('*').order('created_at',{ascending:false});
+  if(r.error) throw r.error;
+  const rows = r.data||[];
+  const urls = await signed('materials', rows.filter(x=>x.kind==='file').map(x=>x.storage_path));
+  return `<article class="card"><h2>จัดการสื่อ</h2>
+  <form data-form="material"><label for="mt">ชื่อสื่อ</label><input id="mt" name="title" type="text" maxlength="200" required>
+  <label for="mk">ประเภท</label><select id="mk" name="kind" data-act="matkind"><option value="file">ไฟล์ (pptx, docx, pdf ไม่เกิน 50 MB)</option><option value="link">ลิงก์</option><option value="video">คลิปวิดีโอ (ลิงก์)</option></select>
+  <div id="mat-file"><label for="mf">ไฟล์</label><input id="mf" name="file" type="file" accept=".pptx,.docx,.pdf"></div>
+  <div id="mat-url" hidden><label for="mu">ลิงก์ (http:// หรือ https://)</label><input id="mu" name="url" type="url"></div>
+  <p></p><button class="btn" type="submit">เพิ่มสื่อ</button></form>
+  <h3>สื่อทั้งหมด</h3>${rows.length?`<ul>${rows.map(m=>{
+    const a = m.kind==='file' ? linkTag(urls[m.storage_path],'เปิดไฟล์'+(m.file_name?` (${m.file_name})`:'')) : (safeUrl(m.url)?linkTag(safeUrl(m.url),'เปิดลิงก์'):'-');
+    return `<li><b>${esc(m.title)}</b> — ${a} <button class="btn alt sm" data-act="delmat" data-id="${esc(m.id)}" data-path="${esc(m.storage_path||'')}">ลบ</button></li>`;}).join('')}</ul>`:'<p class="muted">ยังไม่มีสื่อ</p>'}</article>`;
+}
+function tCsv(){
+  return `<article class="card"><h2>ส่งออก CSV</h2><p>ไฟล์มี BOM เพื่อให้ Excel อ่านภาษาไทยได้ ข้อมูลเป็นข้อมูลส่วนบุคคลของนักเรียน ควรเก็บรักษาและไม่เผยแพร่</p>
+  <div class="nav-row"><button class="btn" data-act="csv-results">ส่งออกผลรายคน</button><button class="btn alt" data-act="csv-subs">ส่งออกคะแนนงาน</button></div></article>`;
+}
+function csvCell(v){
+  if(typeof v === 'number') return String(v);
+  let s = v==null ? '' : String(v);
+  if(/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+  return '"' + s.replace(/"/g,'""') + '"';
+}
+function downloadCsv(name, rows){
+  const text = '\uFEFF' + rows.map(r=>r.map(csvCell).join(',')).join('\r\n');
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([text],{type:'text/csv;charset=utf-8'}));
+  a.download = name; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(a.href),1500);
+}
+
+/* ---------- การกระทำ ---------- */
+function resizeImage(file, max){
+  return new Promise((res,rej)=>{
+    const url = URL.createObjectURL(file); const img = new Image();
+    img.onload = ()=>{ URL.revokeObjectURL(url);
+      const r = Math.min(1, max/Math.max(img.width,img.height));
+      const w = Math.max(1,Math.round(img.width*r)), h = Math.max(1,Math.round(img.height*r));
+      const c = document.createElement('canvas'); c.width=w; c.height=h;
+      const x = c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,w,h); x.drawImage(img,0,0,w,h);
+      c.toBlob(b=> b?res(b):rej(new Error('resize')),'image/jpeg',0.85); };
+    img.onerror = ()=>{ URL.revokeObjectURL(url); rej(new Error('image')); };
+    img.src = url;
+  });
+}
+function toLoginMsg(){ return 'ออกจากระบบแล้ว'; }
+
+async function onLogin(f){
+  const ident = f.elements.ident.value.trim(), pw = f.elements.pw.value;
+  const isId = /^\d{11}$/.test(ident);
+  if(!isId && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(ident)) return notify('กรุณากรอกรหัสนักเรียน 11 หลัก หรืออีเมลครูผู้สอน');
+  const email = isId ? `${ident}@${EMAIL_DOMAIN}` : ident.toLowerCase();
+  const {error} = await sb.auth.signInWithPassword({email, password:pw});
+  if(error) return notify(thaiError(error));
+  await boot();
+}
+async function onRegister(f){
+  const id = f.elements.ident.value.trim(), p1 = f.elements.pw.value, p2 = f.elements.pw2.value;
+  if(!/^\d{11}$/.test(id)) return notify('รหัสนักเรียนต้องเป็นตัวเลข 11 หลัก');
+  if(p1.length < 8) return notify('รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร');
+  if(p1 !== p2) return notify('รหัสผ่านทั้งสองช่องไม่ตรงกัน');
+  const {data,error} = await sb.auth.signUp({email:`${id}@${EMAIL_DOMAIN}`, password:p1});
+  if(error) return notify(thaiError(error));
+  if(!data.session) return notify('สมัครแล้ว แต่ระบบยังต้องยืนยันอีเมล กรุณาแจ้งครูผู้สอนเพื่อตั้งค่าระบบ');
+  await boot();
+}
+async function onQuiz(f){
+  const kind = f.dataset.kind, set = setFor(kind);
+  const choices = [];
+  for(let i=0;i<10;i++){ const c = f.querySelector(`input[name="q${i}"]:checked`); if(!c) return notify(`กรุณาตอบให้ครบทุกข้อ (ยังไม่ได้ตอบข้อ ${i+1})`); choices.push(+c.value); }
+  if(!confirm('ส่งแล้วจะแก้ไขไม่ได้ ยืนยันการส่งคำตอบหรือไม่')) return;
+  const score = choices.reduce((s,c,i)=>s+(c===QUIZ[set][i].a?1:0),0);
+  const {error} = await sb.from('attempts').insert({user_id:S.user.id, kind, score, answers:{set,choices}});
+  if(error){ console.error(error); return notify(error.code==='23505' ? 'ท่านทำแบบทดสอบชุดนี้แล้ว' : thaiError(error)); }
+  S.attempts[kind] = {kind, score, answers:{set,choices}};
+  await render();
+}
+async function onPhoto(f){
+  const file = f.elements.file.files[0];
+  if(!file) return notify('กรุณาเลือกรูป');
+  if(!['image/png','image/jpeg'].includes(file.type)) return notify('รับเฉพาะไฟล์ png หรือ jpg');
+  let blob; try{ blob = await resizeImage(file, 512); }catch(e){ return notify('เปิดรูปนี้ไม่ได้ กรุณาเลือกรูปอื่น'); }
+  if(blob.size > 2*1024*1024) return notify('รูปมีขนาดใหญ่เกิน 2 MB');
+  const path = `${S.user.id}/${Date.now()}_${rand()}.jpg`;
+  const up = await sb.storage.from('photos').upload(path, blob, {contentType:'image/jpeg', upsert:false});
+  if(up.error) return notify(thaiError(up.error));
+  const old = S.me.photo_path;
+  const u = await sb.from('students').update({photo_path:path}).eq('user_id', S.user.id);
+  if(u.error){ await sb.storage.from('photos').remove([path]); return notify(thaiError(u.error)); }
+  if(old) await sb.storage.from('photos').remove([old]);
+  S.me.photo_path = path; await render(); notify('อัปโหลดรูปแล้ว','ok');
+}
+async function onSubmission(f){
+  const kind = f.elements.kind.value, note = f.elements.note.value.trim().slice(0,500) || null;
+  let row = {user_id:S.user.id, unit:4, kind, note}; let uploaded = null;
+  if(kind==='link'){
+    const u = safeUrl(f.elements.url.value);
+    if(!u || !/^https?:\/\//i.test(f.elements.url.value.trim())) return notify('ลิงก์ต้องขึ้นต้นด้วย http:// หรือ https://');
+    row.url = u; row.storage_path = null;
+  } else {
+    const file = f.elements.file.files[0];
+    if(!file) return notify('กรุณาเลือกไฟล์');
+    const ext = extOf(file.name), mime = MIME_FILE[ext];
+    if(!mime || (file.type && file.type !== mime && !(ext==='jpg'&&file.type==='image/jpeg'))) return notify('รับเฉพาะไฟล์ png, jpg, pdf หรือ mp4');
+    if(file.size > 20*1024*1024) return notify('ไฟล์ต้องมีขนาดไม่เกิน 20 MB');
+    const path = `${S.user.id}/${Date.now()}_${rand()}.${ext==='jpeg'?'jpg':ext}`;
+    const up = await sb.storage.from('submissions').upload(path, file, {contentType:mime, upsert:false});
+    if(up.error) return notify(thaiError(up.error));
+    uploaded = path; row.storage_path = path; row.url = null;
+  }
+  const ins = await sb.from('submissions').insert(row);
+  if(ins.error){ if(uploaded) await sb.storage.from('submissions').remove([uploaded]); return notify(thaiError(ins.error)); }
+  await render(); notify('ส่งงานเรียบร้อยแล้ว','ok');
+}
+async function onMaterial(f){
+  const title = f.elements.title.value.trim(), kind = f.elements.kind.value;
+  if(!title) return notify('กรุณากรอกชื่อสื่อ');
+  let row = {title, kind}; let uploaded = null;
+  if(kind==='file'){
+    const file = f.elements.file.files[0];
+    if(!file) return notify('กรุณาเลือกไฟล์');
+    const ext = extOf(file.name), mime = MIME_MAT[ext];
+    if(!mime) return notify('รับเฉพาะไฟล์ pptx, docx หรือ pdf');
+    if(file.size > 50*1024*1024) return notify('ไฟล์ต้องมีขนาดไม่เกิน 50 MB');
+    const path = `${Date.now()}_${rand()}.${ext}`;
+    const up = await sb.storage.from('materials').upload(path, file, {contentType:mime, upsert:false});
+    if(up.error) return notify(thaiError(up.error));
+    uploaded = path; row.storage_path = path; row.file_name = file.name.slice(0,255);
+  } else {
+    const raw = f.elements.url.value.trim(), u = safeUrl(raw);
+    if(!u || !/^https?:\/\//i.test(raw)) return notify('ลิงก์ต้องขึ้นต้นด้วย http:// หรือ https://');
+    row.url = u;
+  }
+  const ins = await sb.from('materials').insert(row);
+  if(ins.error){ if(uploaded) await sb.storage.from('materials').remove([uploaded]); return notify(thaiError(ins.error)); }
+  await render(); notify('เพิ่มสื่อแล้ว','ok');
+}
+
+document.addEventListener('submit', async ev=>{
+  const f = ev.target.closest('form[data-form]'); if(!f) return;
+  ev.preventDefault();
+  const btn = f.querySelector('button[type=submit]'); setBusy(btn,true);
+  try{
+    const k = f.dataset.form;
+    if(k==='login') await onLogin(f); else if(k==='register') await onRegister(f);
+    else if(k==='quiz') await onQuiz(f); else if(k==='photo') await onPhoto(f);
+    else if(k==='submission') await onSubmission(f); else if(k==='material') await onMaterial(f);
+  }catch(e){ console.error(e); notify(thaiError(e)); }
+  finally{ if(btn && btn.isConnected) setBusy(btn,false); }
+});
+document.addEventListener('change', ev=>{
+  const t = ev.target;
+  if(t.dataset && t.dataset.act==='subkind'){ document.getElementById('sub-link').hidden = t.value!=='link'; document.getElementById('sub-file').hidden = t.value!=='file'; }
+  if(t.dataset && t.dataset.act==='matkind'){ document.getElementById('mat-file').hidden = t.value!=='file'; document.getElementById('mat-url').hidden = t.value==='file'; }
+});
+document.addEventListener('click', async ev=>{
+  const b = ev.target.closest('button[data-act]'); if(!b || b.tagName==='SELECT') return;
+  const act = b.dataset.act;
+  try{
+    if(act==='go') return go(b.dataset.v);
+    if(act==='authtab'){ S.authTab = b.dataset.t; return render(); }
+    if(act==='logout'){ await sb.auth.signOut(); S.user=null; S.role=null; S.me=null; S.view='intro'; return render(); }
+    if(act==='inl'){
+      const u=+b.dataset.u, i=+b.dataset.q, o=+b.dataset.o;
+      S.inl[u] = S.inl[u]||{}; S.inl[u][i] = {sel:o, ok:o===UNITS[u-1].inline[i].a};
+      const blk = document.getElementById(`iq-${u}-${i}`); if(blk) blk.outerHTML = inlineBlock(u,i);
+      const nb = document.getElementById('nextbtn'); if(nb) nb.disabled = !unitReady(u);
+      return;
+    }
+    if(act==='finish'){
+      const n=+b.dataset.n; b.disabled = true;
+      if(!S.progress.has(n)){
+        const {error} = await sb.from('progress').upsert({user_id:S.user.id, unit:n, done:true},{onConflict:'user_id,unit'});
+        if(error){ b.disabled=false; return notify(thaiError(error)); }
+        S.progress.add(n);
+      }
+      return go(n<5 ? 'unit'+(n+1) : 'post');
+    }
+    if(act==='delsub'){
+      if(!confirm('ลบงานชิ้นนี้หรือไม่')) return;
+      const {error} = await sb.from('submissions').delete().eq('id', b.dataset.id);
+      if(error) return notify(thaiError(error));
+      if(b.dataset.path) await sb.storage.from('submissions').remove([b.dataset.path]);
+      return render();
+    }
+    if(act==='grade'){
+      const id = b.dataset.id; const sc = document.getElementById('sc-'+id).value.trim(); const cm = document.getElementById('cm-'+id).value.trim();
+      let score = null; if(sc!==''){ score = Number(sc); if(isNaN(score)||score<0||score>10) return notify('คะแนนต้องอยู่ระหว่าง 0 ถึง 10'); }
+      b.disabled = true;
+      const {error} = await sb.from('submissions').update({score, teacher_comment: cm||null}).eq('id', id);
+      b.disabled = false;
+      return error ? notify(thaiError(error)) : notify('บันทึกคะแนนแล้ว','ok');
+    }
+    if(act==='delmat'){
+      if(!confirm('ลบสื่อนี้หรือไม่')) return;
+      if(b.dataset.path){ const rm = await sb.storage.from('materials').remove([b.dataset.path]); if(rm.error) return notify(thaiError(rm.error)); }
+      const {error} = await sb.from('materials').delete().eq('id', b.dataset.id);
+      if(error) return notify(thaiError(error));
+      return render();
+    }
+    if(act==='csv-results'){
+      const r = await sb.from('results').select('*').order('id'); if(r.error) return notify(thaiError(r.error));
+      const head = ['รหัส','คำนำหน้า','ชื่อ','นามสกุล','กลุ่ม','สมัครแล้ว','หน่วยที่เรียน','คะแนนก่อน','คะแนนหลัง','normalized gain','มีรูป'];
+      const rows = (r.data||[]).map(x=>[x.id,x.title||'',x.first_name,x.last_name,x.section||'',x.registered?'ใช่':'ไม่',Number(x.units_done),x.pre_score==null?'':Number(x.pre_score),x.post_score==null?'':Number(x.post_score),x.gain==null?'':Number(x.gain),x.photo_path?'มี':'ไม่มี']);
+      return downloadCsv('results.csv',[head,...rows]);
+    }
+    if(act==='csv-subs'){
+      const [s,st] = await Promise.all([sb.from('submissions').select('*').order('created_at'), sb.from('results').select('id,first_name,last_name,user_id')]);
+      if(s.error||st.error) return notify(thaiError(s.error||st.error));
+      const m = {}; (st.data||[]).forEach(x=>{ if(x.user_id) m[x.user_id]=x; });
+      const head = ['รหัส','ชื่อ','นามสกุล','หน่วย','รูปแบบ','คะแนน','ข้อเสนอแนะ','เวลาส่ง'];
+      const rows = (s.data||[]).map(x=>{ const w = m[x.user_id]||{}; return [w.id||'',w.first_name||'',w.last_name||'',Number(x.unit),x.kind,x.score==null?'':Number(x.score),x.teacher_comment||'',x.created_at]; });
+      return downloadCsv('submissions.csv',[head,...rows]);
+    }
+  }catch(e){ console.error(e); notify(thaiError(e)); }
+});
+
+/* ---------- เริ่มทำงาน ---------- */
+(function init(){
+  if(!SUPABASE_URL || !SUPABASE_ANON_KEY) return setupPage();
+  if(!window.supabase || !window.supabase.createClient) return libMissing();
+  sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  sb.auth.onAuthStateChange((event)=>{ if(event==='SIGNED_OUT'){ S.user=null; S.role=null; } });
+  boot();
+})();
+</script>
+</body>
+</html>
